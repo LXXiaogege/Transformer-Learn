@@ -2,12 +2,12 @@ import torch
 from torch import nn
 
 
-class feedForward(nn.Module):
+class FeedForward(nn.Module):
     """前馈神经网络，通过非线性变换增强模型表示能力"""
 
     def __init__(self, d_model: int, d_ff: int, dropout: float = 0.1, activation=nn.ReLU(), is_gated: bool = False,
                  bias1: bool = True, bias2: bool = True, bias_gate: bool = True):
-        super(feedForward, self).__init__()
+        super(FeedForward, self).__init__()
 
         self.layer1 = nn.Linear(d_model, d_ff, bias=bias1)
         self.layer2 = nn.Linear(d_ff, d_model, bias=bias2)
@@ -40,5 +40,5 @@ class feedForward(nn.Module):
 
 # if __name__ == '__main__':
 #     x = torch.zeros((32, 20, 100), dtype=torch.float)
-#     model = feedForward(d_model=100, d_ff=200)
+#     model = FeedForward(d_model=100, d_ff=200)
 #     model.forward(x)
