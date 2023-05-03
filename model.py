@@ -1,5 +1,4 @@
 import copy
-
 import torch
 from labml_helpers.module import TypedModuleList, M
 from torch import nn
@@ -53,12 +52,10 @@ class TransformerLayer(nn.Module):
         # 加上多头自注意力机制的结果
         x = x + self.dropout(self_attn)
 
-        # decoder 使用
+        # decoder模块部分
         if src is not None:
             z = self.norm_src_attn(x)
-            # Attention to source. i.e. keys and values are from source
             attn_src = self.src_attn(query=z, key=src, value=src, mask=src_mask)
-            # Add the source attention results
             x = x + self.dropout(attn_src)
 
         # feedforward
@@ -131,6 +128,14 @@ class Transformer(nn.Module):
                 nn.init.xavier_uniform_(p)
 
     def forward(self, src: torch.Tensor, tgt: torch.Tensor, src_mask: torch.Tensor, tgt_mask: torch.Tensor):
+        """
+
+        :param src: encoder input (source)
+        :param tgt: decoder input (target)
+        :param src_mask: source mask
+        :param tgt_mask: target mask
+        :return:
+        """
         source_embed = self.src_embed(src)
         encode = self.encoder(source_embed, src_mask)
         target_embed = self.tgt_embed(tgt)

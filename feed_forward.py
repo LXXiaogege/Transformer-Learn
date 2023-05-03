@@ -1,3 +1,6 @@
+"""
+前馈神经网络
+"""
 import torch
 from torch import nn
 
@@ -36,7 +39,6 @@ class FeedForward(nn.Module):
         x = self.dropout(x)
         output = self.layer2(x)
         return output
-
 
 # if __name__ == '__main__':
 #     x = torch.zeros((32, 20, 100), dtype=torch.float)
